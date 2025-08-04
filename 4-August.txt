@@ -1,0 +1,29 @@
+/////904. Fruit Into Baskets
+
+int totalFruit(vector<int>& fruits) {
+        int n=fruits.size();
+        unordered_map<int,int> freq;
+        int maxFruit=0;
+        int start=0,end=0;
+
+        ////sliding window method 
+
+        while(end<n){
+            freq[fruits[end]]++;
+
+            //shrink window if there are more than 2 types of fruits
+            while(freq.size()>2){
+                freq[fruits[start]]--;
+
+                if(freq[fruits[start]]==0){
+                    freq.erase(fruits[start]);
+                }
+                start++;
+            }
+
+            maxFruit=max(maxFruit,end-start+1);
+            end++;
+        }
+
+        return maxFruit;
+    }
