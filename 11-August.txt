@@ -1,0 +1,49 @@
+///2438. Range Product Queries of Powers
+
+
+const long long MOD = 1e9 + 7;
+    // Fast modular exponentiation
+    long long modPow(long long base, long long exp) {
+        long long result = 1;
+        while (exp > 0) {
+            if (exp & 1)
+                result = (result * base) % MOD;
+            base = (base * base) % MOD;
+            exp >>= 1;
+        }
+        return result;
+    }
+
+    // Modular inverse using Fermat's little theorem
+    long long modInverse(long long a) { return modPow(a, MOD - 2); }
+    vector<int> productQueries(int n, vector<vector<int>>& queries) {
+        // Step 1: Build the powers array
+        vector<long long> powers;
+        for (int bit = 0; (1LL << bit) <= n; bit++) {
+            if (n & (1LL << bit)) {
+                powers.push_back(1LL << bit);
+            }
+        }
+
+        // Step 2: Build prefix products
+        int m = powers.size();
+        vector<long long> prefix(m);
+        prefix[0] = powers[0] % MOD;
+        for (int i = 1; i < m; i++) {
+            prefix[i] = (prefix[i - 1] * (powers[i] % MOD)) % MOD;
+        }
+
+        // Step 3: Answer queries
+        vector<int> answers;
+        for (auto& q : queries) {
+            int left = q[0], right = q[1];
+            long long res;
+            if (left == 0) {
+                res = prefix[right];
+            } else {
+                res = (prefix[right] * modInverse(prefix[left - 1])) % MOD;
+            }
+            answers.push_back((int)res);
+        }
+        return answers;
+    }
