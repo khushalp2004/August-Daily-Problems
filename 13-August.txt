@@ -39,3 +39,19 @@ bool isPowerOfThree(int n) {
         
         return fabs(x-round(x))<1e-10;
     }
+
+///method-4 using divisibility check
+
+bool isPowerOfThree(int n) {
+        int max3=1162261467;
+
+        if(n==1){
+            return true;
+        }
+
+        if(n>0 && max3%n==0){
+            return true;
+        }
+
+        return false;
+    }
