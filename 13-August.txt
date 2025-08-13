@@ -27,3 +27,15 @@ bool check(int n){
     bool isPowerOfThree(int n) {
         return check(n);
     }
+
+//method-3 using maths formula 
+
+bool isPowerOfThree(int n) {
+        if(n<=0){
+            return false;
+        }
+
+        double x=log(n)/log(3);
+        
+        return fabs(x-round(x))<1e-10;
+    }
