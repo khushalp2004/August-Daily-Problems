@@ -1,0 +1,20 @@
+//////2264. Largest 3-Same-Digit Number in String
+
+string largestGoodInteger(string num) {
+        int n=num.size();
+        int left=0,right=1;
+        string ans="";
+        while(left<n){
+            while(right<n && num[right]==num[left]){
+                right++;
+            }
+            if(right-left>=3){
+                string temp=num.substr(left,3);
+                if(temp>ans){
+                    ans=temp;
+                }
+            }
+            left=right;
+        }
+        return ans;
+    }
