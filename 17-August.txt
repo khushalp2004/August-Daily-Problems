@@ -1,0 +1,25 @@
+
+////837. New 21 Game
+
+double new21Game(int n, int k, int maxPts) {
+        vector<double> dp(n+maxPts+1,-1.0);
+        return helper(0,n,k,maxPts,dp);
+    }
+
+    double helper(int score,int n, int k, int maxPts, vector<double> &dp){
+        if(score>=k){
+            return score<=n ? 1.0 : 0.0;
+        }
+
+        if(dp[score]!=-1.0){
+            return dp[score];
+        }
+
+        double prob=0.0;
+        for(int i=1;i<=maxPts;i++){
+            prob+=helper(score+i,n,k,maxPts,dp);
+        }
+
+        dp[score]=prob/maxPts;
+        return dp[score];
+    }
