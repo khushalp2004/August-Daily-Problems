@@ -32,3 +32,38 @@ int m,n;
         return result;
     }
 
+///method-2 Recursion + Memoization or dp 
+int m,n;
+    int solve(vector<vector<int>> &matrix,int i,int j,vector<vector<int>> &t){
+        if(i>=m || j>=n){
+            return 0;
+        }
+        if(matrix[i][j]==0){
+            return 0;
+        }
+
+        if(t[i][j]!=-1){
+            return t[i][j];//base memoization
+        }
+
+        int right=solve(matrix,i,j+1,t);
+        int down=solve(matrix,i+1,j,t);
+        int diagonal=solve(matrix,i+1,j+1,t);
+
+        return t[i][j]=1+min({right,down,diagonal});
+    }
+    int countSquares(vector<vector<int>>& matrix) {
+        m=matrix.size();
+        n=matrix[0].size();
+
+        int result=0;
+        vector<vector<int>> t(m+1,vector<int>(n+1,-1));////memoization
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]==1){
+                    result+=solve(matrix,i,j,t);
+                }
+            }
+        }
+        return result;
+    }
