@@ -1,0 +1,38 @@
+
+///1504. Count Submatrices With All Ones
+method-1 using dp and Recursion
+int numSubmat(vector<vector<int>>& mat) {
+        int m = mat.size();
+        int n = mat[0].size();
+
+        vector<vector<int>> t(m, vector<int>(n, 0));
+
+        // Precompute horizontal consecutive 1s
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 1) {
+                    if(j==0){
+                        t[i][j]=1;
+                    }else{
+                        t[i][j]=t[i][j-1]+1;
+                    }
+                }
+            }
+        }
+
+        int result = 0;
+        // Count submatrices
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 1) {
+                    int width = t[i][j];
+                    for (int k = i; k >= 0 && width > 0; k--) {
+                        width = min(width, t[k][j]);
+                        result += width;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
