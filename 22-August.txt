@@ -1,0 +1,29 @@
+
+////3195. Find the Minimum Area to Cover All Ones I
+//method -1 (check left most and right most row and top most and bottom most column and difference between them is length and width and area is l*b +1 is used because index starts from 0 which will cause wrong answer)
+int minimumArea(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+
+        int minRow=m;
+        int maxRow=-1;
+        int minCol=n;
+        int maxCol=-1;
+
+        int area=0;
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    minRow=min(minRow,i);
+                    maxRow=max(maxRow,i);
+
+                    minCol=min(minCol,j);
+                    maxCol=max(maxCol,j);
+                }
+            }
+        }
+        
+        area=(maxRow-minRow+1)*(maxCol-minCol+1);//index starts from 0 so add +1 to get correct answer
+        return area;
+    }
