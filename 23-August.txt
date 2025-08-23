@@ -1,0 +1,75 @@
+
+/////3197. Find the Minimum Area to Cover All Ones II
+int minArea(vector<vector<int>> &grid,int startI,int endI,int startJ,int endJ){
+        int minX=INT_MAX;
+        int maxX=-1;
+        int minY=INT_MAX;
+        int maxY=-1;
+        
+        for(int i=startI;i<=endI;i++){
+            for(int j=startJ;j<=endJ;j++){
+                if(grid[i][j]==1){
+                    minX=min(minX,i);
+                    maxX=max(maxX,i);
+                    minY=min(minY,j);
+                    maxY=max(maxY,j);
+                }
+            }
+        }
+
+        if(maxX==-1){
+            return 0;
+        }
+
+        int area=(maxX-minX+1)*(maxY-minY+1);
+        return area;///return the minimum area which is the same method used in the find the minimum area to cover all ones I
+    }
+    int minimumSum(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+
+        int ans=m*n;//max area of rectangle
+
+        for(int i=0;i<m;i++){
+            int top=minArea(grid,0,i,0,n-1);
+            for(int j=0;j<n;j++){
+                ans=min(ans,top+minArea(grid,i+1,m-1,0,j)+minArea(grid,i+1,m-1,j+1,n-1));
+            }
+        }
+
+        for(int i=0;i<m;i++){
+            int bottom=minArea(grid,i,m-1,0,n-1);
+            for(int j=0;j<n;j++){
+                ans=min(ans,bottom+minArea(grid,0,i-1,0,j)+minArea(grid,0,i-1,j+1,n-1));
+            }
+        }
+
+        for(int j=0;j<n;j++){
+            int left=minArea(grid,0,m-1,0,j);
+            for(int i=0;i<m;i++){
+                ans=min(ans,left+minArea(grid,0,i,j+1,n-1)+minArea(grid,i+1,m-1,j+1,n-1));
+            }
+        }
+
+        for(int j=0;j<n;j++){
+            int right=minArea(grid,0,m-1,j,n-1);
+            for(int i=0;i<m;i++){
+                ans=min(ans,right+minArea(grid,0,i,0,j-1)+minArea(grid,i+1,m-1,0,j-1));
+            }
+        }
+
+        //horizontal bands
+        for(int i1=0;i1<m;i1++){
+            for(int i2=i1+1;i2<m;i2++){
+                ans=min(ans,minArea(grid,0,i1,0,n-1)+minArea(grid,i1+1,i2,0,n-1)+minArea(grid,i2+1,m-1,0,n-1));
+            }
+        }
+        //vertical bands
+        for(int j1=0;j1<n;j1++){
+            for(int j2=j1+1;j2<n;j2++){
+                ans=min(ans,minArea(grid,0,m-1,0,j1)+minArea(grid,0,m-1,j1+1,j2)+minArea(grid,0,m-1,j2+1,n-1));
+            }
+        }
+
+        return ans;
+    }
