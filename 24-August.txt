@@ -1,5 +1,6 @@
 
-//brute force tc-O(n^2)
+method-1
+//brute force tc-O(n^2) causes TLE
 int n;
     int findMax(vector<int> &nums,int skipIt){
         int currLength=0;
@@ -35,5 +36,29 @@ int n;
         if(Zeroes==0){
             return n-1;
         }
+        return max_count;
+    }
+
+    ///method-2-Sliding Window Method
+    int longestSubarray(vector<int>& nums) {
+        // sliding window can be used
+        int n = nums.size();
+        int max_count=0;
+        int Zeroes=0;
+        int start=0;
+
+        for(int end=0;end<n;end++){
+            if(nums[end]==0){
+                Zeroes++;
+            }
+            while(Zeroes>1){
+                if(nums[start]==0){
+                    Zeroes--;
+                }
+                start++;
+            }
+            max_count=max(max_count,(end-start));
+        }
+
         return max_count;
     }
