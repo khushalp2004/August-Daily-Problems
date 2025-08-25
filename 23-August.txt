@@ -11,7 +11,7 @@ int minArea(vector<vector<int>> &grid,int startI,int endI,int startJ,int endJ){
                 if(grid[i][j]==1){
                     minX=min(minX,i);
                     maxX=max(maxX,i);
-                    minY=min(minY,j);
+                    minY=min(minY,j);q
                     maxY=max(maxY,j);
                 }
             }
