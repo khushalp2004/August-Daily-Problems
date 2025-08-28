@@ -1,5 +1,6 @@
 
 /////3446. Sort Matrix by Diagonals
+//method- hash map (unordered_map) is used 
 vector<vector<int>> sortMatrix(vector<vector<int>>& grid) {
         int n = grid.size();
 
@@ -36,3 +37,8 @@ vector<vector<int>> sortMatrix(vector<vector<int>>& grid) {
 
         return grid;
     }
+
+
+    //method-2
+    ///using priority_queue
+    
