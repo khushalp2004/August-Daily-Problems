@@ -1,0 +1,38 @@
+
+/////3446. Sort Matrix by Diagonals
+vector<vector<int>> sortMatrix(vector<vector<int>>& grid) {
+        int n = grid.size();
+
+        auto sortDiag = [&](int r, int c, bool asc) {
+            vector<int> v;
+            int i = r, j = c;
+            while (i < n && j < n) { 
+                v.push_back(grid[i][j]); 
+                ++i;
+                ++j; 
+            }
+            sort(v.begin(), v.end());
+            if (!asc) {
+                reverse(v.begin(), v.end());
+            }   //descending
+            i = r; j = c;
+            int k = 0;
+            while (i < n && j < n) {
+                grid[i][j] = v[k++]; 
+                ++i; 
+                ++j; 
+            }
+        };
+
+        // Bottom-left triangle (including main diagonal) -> descending
+        for (int i = 0; i < n; ++i) {
+            sortDiag(i, 0, false);
+        }
+
+        // Top-right triangle -> ascending (start from col=1 to skip main)
+        for (int j = 1; j < n; ++j) {
+            sortDiag(0, j, true);
+        }
+
+        return grid;
+    }
