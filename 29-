@@ -1,0 +1,10 @@
+ typedef long long ll;
+    long long flowerGame(int n, int m) {
+        //alice wins if and only if x+y=odd,so
+        ll xEven=n/2;
+        ll xOdd=(n+1)/2;
+        ll yEven=m/2;
+        ll yOdd=(m+1)/2;
+
+        return (xEven*yOdd)+(xOdd*yEven);
+    }
