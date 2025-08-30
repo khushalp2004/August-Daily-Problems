@@ -54,4 +54,56 @@ bool isValidSudoku(vector<vector<char>>& board) {
         return true;
     }
 
-    
+    //method-1b using unordered set
+    bool isValidSudoku(vector<vector<char>>& board) {
+        int m=board.size();
+        int n=board[0].size();
+
+        //validate rows
+        for(int row=0;row<9;row++){
+            unordered_set<char> st;
+            for(int col=0;col<9;col++){
+                char ch=board[row][col];
+                if(ch=='.'){
+                    continue;
+                }
+                if(st.find(ch)!=st.end()){
+                    return false;
+                }
+                st.insert(ch);
+            } 
+        }
+        //validate cols
+        for(int col=0;col<9;col++){
+            unordered_set<char> st;
+            for(int row=0;row<9;row++){
+                char ch=board[row][col];
+                if(ch=='.'){
+                    continue;
+                }
+                if(st.find(ch)!=st.end()){
+                    return false;
+                }
+                st.insert(ch);
+            }
+        }
+        //validate grid
+        for(int boxRow=0;boxRow<9;boxRow+=3){
+            for(int boxCol=0;boxCol<9;boxCol+=3){
+                unordered_set<char> st;
+                for(int row=0;row<3;row++){
+                    for(int col=0;col<3;col++){
+                        char ch=board[boxRow+row][boxCol+col];
+                        if(ch=='.'){
+                            continue;
+                        }
+                        if(st.find(ch)!=st.end()){
+                            return false;
+                        }
+                        st.insert(ch);
+                    }
+                }
+            }
+        }
+        return true;
+    }
