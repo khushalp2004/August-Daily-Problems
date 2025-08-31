@@ -1,6 +1,7 @@
  
  ///3021. Alice and Bob Playing Flower Game
 //method----->when x+y=odd alice wins
+
  typedef long long ll;
     long long flowerGame(int n, int m) {
         //alice wins if and only if x+y=odd,so
